@@ -43,10 +43,11 @@ if __name__ == "__main__":
     verbose = args.verbose
 
     # set logger
-    logging.basicConfig(format="%(asctime)s %(message)s", level=logging.INFO)
+    logging.basicConfig(
+        format="%(asctime)s %(message)s",
+        level=logging.DEBUG if verbose else logging.INFO,
+    )
     logger = logging.getLogger(__name__)
-    if verbose:
-        logger.setLevel(logging.DEBUG)
 
     # show command parameters
     logger.debug("infile ......................: %s", infile.name)
@@ -55,7 +56,7 @@ if __name__ == "__main__":
     logger.debug("version .....................: %s", __version__)
 
     # call helper function to log file contents
-    show_employees(infile, verbose)
-    dump_employees(infile.name, verbose)
+    show_employees(infile)
+    dump_employees(infile.name)
 
     sys.exit(0)

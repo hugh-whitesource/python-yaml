@@ -29,7 +29,7 @@ help:
 	@echo
 	@echo "Initialise virtual environment (venv) with:"
 	@echo
-	@echo "pip3 install virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -r requirements.txt"
+	@echo "pip install -U virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip install -Ur requirements.txt"
 	@echo
 	@echo "Start virtual environment (venv) with:"
 	@echo

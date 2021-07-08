@@ -10,13 +10,8 @@ from io import TextIOWrapper
 from employees.employees import Employees
 
 
-def show_employees(infile: TextIOWrapper, verbose: bool) -> None:
+def show_employees(infile: TextIOWrapper) -> None:
     """Show employee data read from YAML file."""
-
-    # set loggin level
-    if verbose:
-        logger = logging.getLogger()
-        logger.setLevel(logging.DEBUG)
 
     # load employees from YAML
     _e = Employees(infile)
@@ -47,9 +42,9 @@ def show_employees(infile: TextIOWrapper, verbose: bool) -> None:
     logging.debug("list turnover by year .......: %s", _t)
 
 
-def dump_employees(file: str, verbose: bool) -> None:
+def dump_employees(file: str) -> None:
     """Dump employee data."""
 
-    if verbose:
+    if logging.getLogger().getEffectiveLevel() == logging.DEBUG:
         print("dumping file contents:")
         print(Employees(file).dump())

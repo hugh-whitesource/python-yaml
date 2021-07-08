@@ -8,6 +8,6 @@ This project contains the following classes:
 .. toctree::
 
    employees
-   testemployees
+   test_employees
 
 .. EOF

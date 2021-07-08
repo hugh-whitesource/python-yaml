@@ -1,7 +1,7 @@
-.. _testemployees:
+.. _test_employees:
 
-TestEmployees
-=============
+Test Employees
+==============
 
 .. :py:mod:tests.testemployees
    :members:
@@ -12,14 +12,14 @@ The unit tests and test coverage reports are available from :doc:`unittests`.
 
 To get help on this module, run::
 
-   pydoc tests.testemployees
+   pydoc tests.test_employees
 
 Module
 ------
 
-.. automodule:: tests.testemployees
+.. automodule:: tests.test_employees
    :members:
 
-:download:`Source <../tests/testemployees.py>`
+:download:`Source <../tests/test_employees.py>`
 
 .. EOF

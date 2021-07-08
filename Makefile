@@ -1,6 +1,6 @@
 #!/usr/bin/env make
 
-.DEFAULT_GOAL := help
+.DEFAULT_GOAL := default
 
 .PHONY: check clean dist doc help run test
 
@@ -10,9 +10,11 @@ EMPTY	:=
 SPACE	:= $(EMPTY) $(EMPTY)
 PYTHON	:= /usr/bin/python3
 
-SRCS	:= main.py employees/employees.py tests/testemployees.py
+SRCS	:= main.py employees/*.py utils/*.py tests/*.py
 
-all: check test run doc dist
+default:	check test
+
+all:	check test run doc dist
 
 help:
 	@echo
@@ -39,18 +41,23 @@ help:
 	@echo
 
 check:
+	# ctags for vim
+	ctags --recurse -o tags $(SRCS)
+	# sort imports
+	isort $(SRCS)
 	# format code to googles style
-	yapf --style google --parallel -i $(SRCS) setup.py
+	black $(SRCS) setup.py
 	# check with pylint
 	pylint $(SRCS)
 	# check distutils
 	$(PYTHON) setup.py check
 
 test:
-	pytest -v --html=cover/report.html --cov=employees --cov-report=html:cover tests/test*.py
+	pytest -v --cov-report term-missing --cov=employees tests/
 
 doc:
 	# create sphinx documentation
+	pytest -v --html=cover/report.html --cov=employees --cov-report=html:cover tests/
 	(cd docs; make html)
 
 dist:

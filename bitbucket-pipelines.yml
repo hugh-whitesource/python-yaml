@@ -1,4 +1,6 @@
-image: python:3.7.3
+---
+
+image: python:3.9.2
 
 pipelines:
   default:
@@ -8,10 +10,10 @@ pipelines:
           - pip
         script:
           - uname -a
-          - apt-get update && apt-get install -y make python3-yaml
+          - apt-get update && apt-get install -y make python3-yaml ctags
           - python --version
           - pip --version
-          - pip install -r requirements.txt
+          - pip install -U -r requirements.txt
           - pip freeze
           - make help
           - make clean all

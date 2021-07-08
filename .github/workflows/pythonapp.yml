@@ -20,27 +20,33 @@ jobs:
 
       - uses: actions/checkout@v1
 
-      - name: set up python 3.8
+      - name: set up python 3.9
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: 3.9
 
       - name: install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: lint source
-        run: |
-          yapf --version
+          python -V
+          pip install virtualenv
+          virtualenv venv
+          source venv/bin/activate
+          pip install -U -r requirements.txt
+          echo isort $(isort --version-number)
+          black --version
+          flake8 --version
           pylint --version
-          yapf --style google --diff --parallel main.py setup.py employees/employees.py tests/testemployees.py
-          pylint main employees.employees tests.testemployees
+
+      - name: check source
+        run: |
+          isort --check --diff main.py employees/*.py utils/*.py tests/*.py
+          black --check main.py employees/*.py utils/*.py tests/*.py
+          pylint main.py employees/*.py utils/*.py tests/*.py
           python setup.py check
 
       - name: test
         run: |
-          pytest -v --html=cover/report.html --cov=employees --cov-report=html:cover tests/test*.py
+          pytest -v --cov-report term-missing --cov=employees tests/
 
       - name: run example application
         run: |
@@ -50,6 +56,8 @@ jobs:
 
       - name: make documentation
         run: |
+          pytest -v --html=cover/report.html --cov=employees tests/
+          coverage html -d cover employees/employees.py
           (cd docs; make html)
 
       - name: publish to pages

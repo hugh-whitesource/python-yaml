@@ -1,4 +1,7 @@
-# This file is a template, and might need editing before it works on your project.
+---
+
+# This file is a template, and might need editing before it works on your
+# project.
 # Official language image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/python/tags/
 image: python:latest
@@ -23,20 +26,24 @@ before_script:
   - pip install virtualenv
   - virtualenv venv
   - source venv/bin/activate
-  - pip install -r requirements.txt
+  - pip install -U -r requirements.txt
+  - echo isort $(isort --version-number)
+  - black --version
+  - flake8 --version
+  - pylint --version
 
 check:
   stage: test
   script:
-    - yapf --style google --diff --parallel main.py setup.py employees/employees.py tests/testemployees.py
-    - pylint main employees.employees tests.testemployees
+    - isort --check --diff main.py employees/*.py utils/*.py tests/*.py
+    - black --check main.py employees/*.py utils/*.py tests/*.py
+    - pylint main.py employees/*.py utils/*.py tests/*.py
     - python setup.py check
 
 test:
   stage: test
   script:
-    - pytest -v --html=cover/report.html --cov=employees tests/test*.py
-    - coverage html -d cover employees/employees.py
+    - pytest -v --cov-report term-missing --cov=employees tests/
 
 run:
   stage: test
@@ -48,7 +55,7 @@ run:
 pages:
   stage: deploy
   script:
-    - pytest -v --html=cover/report.html --cov=employees tests/test*.py
+    - pytest -v --html=cover/report.html --cov=employees tests/
     - coverage html -d cover employees/employees.py
     - (cd docs; make html)
     - python setup.py clean

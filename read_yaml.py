@@ -23,17 +23,17 @@ if __name__ == "__main__":
         epilog="© 2014-2021 Frank H Jung mailto:frankhjung@linux.com",
     )
     parser.add_argument(
-        "infile",
-        nargs="?",
-        type=argparse.FileType("r"),
-        default="tests/test.yaml",
-        help="alternate YAML file to test",
+        "-v", "--verbose", action="store_true", help="show verbose output"
     )
-    parser.add_argument("-v", "--verbose", help="show verbose output")
     parser.add_argument(
         "--version",
         action="version",
         version="%(prog)s {version}".format(version=__version__),
+    )
+    parser.add_argument(
+        "infile",
+        type=argparse.FileType("r"),
+        help="alternate YAML file to test",
     )
 
     # process command line arguments
@@ -47,7 +47,7 @@ if __name__ == "__main__":
         format="%(asctime)s %(message)s",
         level=logging.DEBUG if verbose else logging.INFO,
     )
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger()
 
     # show command parameters
     logger.debug("infile ......................: %s", infile.name)
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     logger.debug("verbose .....................: %s", verbose)
     logger.debug("version .....................: %s", __version__)
 
-    # call helper function to log file contents
+    # call helper function to show YAML file contents
     show_employees(infile)
     dump_employees(infile.name)
 

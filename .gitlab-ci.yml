@@ -34,26 +34,31 @@ before_script:
 
 check:
   stage: test
+  except: [tags]
   script:
-    - isort --check --diff main.py employees/*.py utils/*.py tests/*.py
-    - black --check main.py employees/*.py utils/*.py tests/*.py
-    - pylint main.py employees/*.py utils/*.py tests/*.py
+    - isort --check --diff read_yaml.py employees/*.py utils/*.py tests/*.py
+    - black --check read_yaml.py employees/*.py utils/*.py tests/*.py
+    - pylint read_yaml.py employees/*.py utils/*.py tests/*.py
     - python setup.py check
 
 test:
   stage: test
+  except: [tags]
   script:
     - pytest -v --cov-report term-missing --cov=employees tests/
 
 run:
   stage: test
+  except: [tags]
   script:
-    - python -m main -h
-    - python -m main --version
-    - python -m main -v tests/test.yaml
+    - python -m read_yaml -h
+    - python -m read_yaml --version
+    - python -m read_yaml -v tests/test.yaml
 
 pages:
   stage: deploy
+  only: [master]
+  except: [tags]
   script:
     - pytest -v --html=cover/report.html --cov=employees tests/
     - coverage html -d cover employees/employees.py
@@ -66,5 +71,3 @@ pages:
     paths:
       - public
       - target/dist/*.tar.gz
-  only:
-    - master

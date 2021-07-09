@@ -10,7 +10,7 @@ EMPTY	:=
 SPACE	:= $(EMPTY) $(EMPTY)
 PYTHON	:= /usr/bin/python3
 
-SRCS	:= main.py employees/*.py utils/*.py tests/*.py
+SRCS	:= read_yaml.py employees/*.py utils/*.py tests/*.py
 
 default:	check test
 
@@ -69,9 +69,9 @@ dist:
 	cp -p target/dist/*.tar.gz public
 
 run:
-	$(PYTHON) -m main -v tests/test.yaml
-	$(PYTHON) -m main -h
-	$(PYTHON) -m main --version
+	$(PYTHON) -m read_yaml -v tests/test.yaml
+	$(PYTHON) -m read_yaml -h
+	$(PYTHON) -m read_yaml --version
 
 version:
 	$(PYTHON) -m main --version

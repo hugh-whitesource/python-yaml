@@ -17,6 +17,7 @@ pipelines:
           - pip freeze
           - make help
           - make clean all
+          - make run
         artifacts:
           - target/dist/**
           - target/docs/html/**

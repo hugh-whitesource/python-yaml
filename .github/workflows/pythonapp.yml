@@ -29,7 +29,7 @@ jobs:
           path: venv
           key: $GITHUB_REF
 
-      - name: install dependencies
+      - name: setup
         run: |
           python -V
           python -m pip install --upgrade pip virtualenv
@@ -41,12 +41,12 @@ jobs:
           flake8 --version
           pylint --version
 
-      - name: check source
+      - name: check
         run: |
           source venv/bin/activate
-          isort --check --diff main.py employees/*.py utils/*.py tests/*.py
-          black --check main.py employees/*.py utils/*.py tests/*.py
-          pylint main.py employees/*.py utils/*.py tests/*.py
+          isort --check --diff read_yaml.py employees/*.py utils/*.py tests/*.py
+          black --check read_yaml.py employees/*.py utils/*.py tests/*.py
+          pylint read_yaml.py employees/*.py utils/*.py tests/*.py
           python setup.py check
 
       - name: test
@@ -54,21 +54,21 @@ jobs:
           source venv/bin/activate
           pytest -v --cov-report term-missing --cov=employees tests/
 
-      - name: run example application
+      - name: run
         run: |
           source venv/bin/activate
-          python -m main -h
-          python -m main --version
-          python -m main -v tests/test.yaml
+          python -m read_yaml -h
+          python -m read_yaml --version
+          python -m read_yaml -v tests/test.yaml
 
-      - name: make documentation
+      - name: document
         run: |
           source venv/bin/activate
           pytest -v --html=cover/report.html --cov=employees tests/
           coverage html -d cover employees/employees.py
           (cd docs; make html)
 
-      - name: publish to pages
+      - name: publish
         uses: crazy-max/ghaction-github-pages@v1
         if: success()
         with:

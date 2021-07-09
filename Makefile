@@ -46,7 +46,7 @@ check:
 	# sort imports
 	isort $(SRCS)
 	# format code to googles style
-	black $(SRCS) setup.py
+	black -q $(SRCS) setup.py
 	# check with pylint
 	pylint $(SRCS)
 	# check distutils

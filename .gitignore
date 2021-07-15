@@ -8,6 +8,7 @@ dist/
 .DS_Store
 htmlcov/
 .idea/
+*.log
 MANIFEST
 .noseids
 public
@@ -17,9 +18,10 @@ __pycache__
 .Python
 README
 results/
-results.html
+*.html
 .spyproject/
 *.swp
+tags
 target/
 venv
 .vscode/

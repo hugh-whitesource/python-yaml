@@ -7,7 +7,6 @@
 SHELL	:= /bin/sh
 COMMA	:= ,
 EMPTY	:=
-SPACE	:= $(EMPTY) $(EMPTY)
 PYTHON	:= /usr/bin/python3
 
 SRCS	:= read_yaml.py employees/*.py utils/*.py tests/*.py
@@ -23,8 +22,8 @@ help:
 	@echo "  check: check style and lint code"
 	@echo "  run:   run against test data"
 	@echo "  test:  run unit tests"
-	@echo "  dist:  create a distrbution archive"
-	@echo "  doc:   create documentation including test converage and results"
+	@echo "  dist:  create a distribution archive"
+	@echo "  doc:   create documentation including test coverage and results"
 	@echo "  clean: delete all generated files"
 	@echo
 	@echo "Initialise virtual environment (venv) with:"
@@ -79,15 +78,15 @@ version:
 clean:
 	# clean build distribution
 	$(PYTHON) setup.py clean
-	# clean generated documents
+	# clean generated files
 	(cd docs; make clean)
 	$(RM) -rf cover
 	$(RM) -rf .coverage
 	$(RM) -f  *.log *.log.*
 	$(RM) -rf __pycache__ employees/__pycache__ tests/__pycache__
 	$(RM) -rf public
+	$(RM) -f  tags
 	$(RM) -rf target
-	$(RM) -v MANIFEST
-	$(RM) -v *.pyc *.pyo *.py,cover
-	$(RM) -v **/*.pyc **/*.pyo **/*.py,cover
-
+	$(RM) -v  MANIFEST
+	$(RM) -v  *.pyc *.pyo *.py,cover
+	$(RM) -v  **/*.pyc **/*.pyo **/*.py,cover

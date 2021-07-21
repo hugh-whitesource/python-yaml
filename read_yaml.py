@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# pylint: disable=C0103
 """
 Read Employee data to return turnover information.
 This is a example Python program to read and process YAML files.

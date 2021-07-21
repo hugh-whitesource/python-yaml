@@ -2,7 +2,7 @@
 
 name: Python application
 
-on:
+on:                      # yamllint disable rule:truthy
   push:
     branches:
       - master

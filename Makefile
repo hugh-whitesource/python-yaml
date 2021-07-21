@@ -10,6 +10,7 @@ EMPTY	:=
 PYTHON	:= /usr/bin/python3
 
 SRCS	:= read_yaml.py employees/*.py utils/*.py tests/*.py
+YAMLS	:= $(wildcard .*.yml *.yml .github/**/*.yml)
 
 default:	check test
 
@@ -48,6 +49,8 @@ check:
 	black -q $(SRCS) setup.py
 	# check with pylint
 	pylint $(SRCS)
+	# check yaml
+	yamllint --strict $(YAMLS)
 	# check distutils
 	$(PYTHON) setup.py check
 

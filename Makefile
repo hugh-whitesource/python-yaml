@@ -71,9 +71,9 @@ dist:
 	cp -p target/dist/*.tar.gz public
 
 run:
-	$(PYTHON) -m read_yaml -v tests/test.yaml
-	$(PYTHON) -m read_yaml -h
 	$(PYTHON) -m read_yaml --version
+	$(PYTHON) -m read_yaml -h
+	$(PYTHON) -m read_yaml -v tests/test.yaml
 
 version:
 	$(PYTHON) -m main --version

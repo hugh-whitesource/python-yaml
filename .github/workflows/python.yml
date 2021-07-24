@@ -40,6 +40,7 @@ jobs:
           black --version
           flake8 --version
           pylint --version
+          yamllint --version
 
       - name: check
         run: |
@@ -47,6 +48,8 @@ jobs:
           isort --check --diff read_yaml.py employees/*.py utils/*.py tests/*.py
           black --check read_yaml.py employees/*.py utils/*.py tests/*.py
           pylint read_yaml.py employees/*.py utils/*.py tests/*.py
+          yamllint --strict bitbucket-pipelines.yml .gitlab-ci.yml \
+            .github/workflows/python.yml tests/test.yaml
           python setup.py check
 
       - name: test

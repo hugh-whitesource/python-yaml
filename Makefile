@@ -10,7 +10,7 @@ EMPTY	:=
 PYTHON	:= /usr/bin/python3
 
 SRCS	:= read_yaml.py employees/*.py utils/*.py tests/*.py
-YAMLS	:= $(wildcard .*.yml *.yml .github/**/*.yml)
+YAMLS	:= $(wildcard .*.yml *.yml .github/**/*.yml tests/*.yaml)
 
 default:	check test
 

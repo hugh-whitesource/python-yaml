@@ -1,6 +1,6 @@
 ---
 
-image: python:3.9.2
+image: python:3.9
 
 pipelines:
   default:

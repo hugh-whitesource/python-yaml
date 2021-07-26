@@ -13,11 +13,8 @@ pipelines:
           - apt-get update && apt-get install -y make python3-yaml ctags
           - python --version
           - pip --version
-          - pip install -U -r requirements.txt
-          - pip freeze
-          - make help
+          - pip install -Ur requirements.txt
           - make clean all
-          - make run
         artifacts:
           - target/dist/**
           - target/docs/html/**

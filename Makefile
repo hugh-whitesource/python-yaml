@@ -8,6 +8,7 @@ SHELL	:= /bin/sh
 COMMA	:= ,
 EMPTY	:=
 PYTHON	:= /usr/bin/python3
+CTAGS	:= $(shell which ctags)
 
 SRCS	:= read_yaml.py employees/*.py utils/*.py tests/*.py
 YAMLS	:= $(wildcard .*.yml *.yml .github/**/*.yml tests/*.yaml)
@@ -41,8 +42,10 @@ help:
 	@echo
 
 check:
+ifdef CTAGS
 	# ctags for vim
 	ctags --recurse -o tags $(SRCS)
+endif
 	# sort imports
 	isort $(SRCS)
 	# format code to googles style
@@ -83,8 +86,10 @@ clean:
 	$(PYTHON) setup.py clean
 	# clean generated files
 	(cd docs; make clean)
+	$(RM) -rf build
 	$(RM) -rf cover
 	$(RM) -rf .coverage
+	$(RM) -rf dist
 	$(RM) -f  *.log *.log.*
 	$(RM) -rf __pycache__ employees/__pycache__ tests/__pycache__
 	$(RM) -rf public

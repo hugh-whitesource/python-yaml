@@ -38,7 +38,6 @@ jobs:
           pip install -U -r requirements.txt
           echo isort $(isort --version-number)
           black --version
-          flake8 --version
           pylint --version
           yamllint --version
 

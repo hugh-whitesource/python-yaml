@@ -76,7 +76,7 @@ dist:
 run:
 	$(PYTHON) -m read_yaml --version
 	$(PYTHON) -m read_yaml -h
-	$(PYTHON) -m read_yaml -v tests/test.yaml
+	$(PYTHON) -m read_yaml -v tests
 
 version:
 	$(PYTHON) -m main --version

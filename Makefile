@@ -49,7 +49,7 @@ endif
 	# sort imports
 	isort $(SRCS)
 	# format code to googles style
-	black -q $(SRCS) setup.py
+	yapf --style google --parallel -i $(SRCS) setup.py
 	# check with pylint
 	pylint $(SRCS)
 	# check yaml

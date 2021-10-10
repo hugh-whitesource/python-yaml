@@ -25,23 +25,23 @@ before_script:
   - source venv/bin/activate
   - pip install -Ur requirements.txt
   - echo isort $(isort --version-number)
-  - black --version
   - pylint --version
   - yamllint --version
+  - yapf --version
 
 build:
   stage: build
   except: [tags]
   script:
     - echo Check ...
-    - isort --check --diff read_yaml.py employees/*.py utils/*.py tests/*.py
-    - black --check read_yaml.py employees/*.py utils/*.py tests/*.py
-    - pylint read_yaml.py employees/*.py utils/*.py tests/*.py
+    - isort --check --diff
+        read_yaml.py employees/*.py utils/*.py tests/*.py
+    - yapf --style google --parallel -i
+        read_yaml.py employees/*.py utils/*.py tests/*.py
+    - pylint
+        read_yaml.py employees/*.py utils/*.py tests/*.py
     - yamllint --strict
-        .github/workflows/*.yml
-        .*.yml
-        *.yml
-        tests/*.yaml
+        .github/workflows/*.yml .*.yml *.yml tests/*.yaml
     - python setup.py check
     - echo Test ...
     - pytest -v --cov-report term-missing --cov=employees tests/
@@ -55,7 +55,6 @@ pages:
   only: [master]
   except: [tags]
   script:
-    - echo Docs ...
     - pytest -v --html=cover/report.html --cov=employees tests/
     - coverage html -d cover employees/employees.py
     - (cd docs; make html)

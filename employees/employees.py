@@ -13,7 +13,7 @@ from yaml import dump, safe_load
 class Employees:
     """Read Employee data to return turnover information."""
 
-    __version__ = "1.2.0"
+    __version__ = "1.3.0"
 
     def __init__(self, infile=None):
         self.__class__ = Employees
@@ -111,8 +111,7 @@ class Employees:
             turnovers = list(
                 self.employees.get(name).get("turnover").get(_t)
                 for _t in self.employees.get(name).get("turnover")
-                if _t == year
-            )
+                if _t == year)
             if turnovers:
                 total = sum(turnovers)
             else:

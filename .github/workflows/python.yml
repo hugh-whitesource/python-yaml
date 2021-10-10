@@ -35,20 +35,24 @@ jobs:
           python -m pip install --upgrade pip virtualenv
           python -m virtualenv venv
           source venv/bin/activate
-          pip install -U -r requirements.txt
+          pip install -Ur requirements.txt
           echo isort $(isort --version-number)
-          black --version
           pylint --version
           yamllint --version
+          yapf --version
 
       - name: check
         run: |
           source venv/bin/activate
-          isort --check --diff read_yaml.py employees/*.py utils/*.py tests/*.py
-          black --check read_yaml.py employees/*.py utils/*.py tests/*.py
-          pylint read_yaml.py employees/*.py utils/*.py tests/*.py
-          yamllint --strict bitbucket-pipelines.yml .gitlab-ci.yml \
-            .github/workflows/python.yml tests/test.yaml
+          isort --check --diff \
+            read_yaml.py employees/*.py utils/*.py tests/*.py
+          yapf --style google --diff --parallel \
+            read_yaml.py employees/*.py utils/*.py tests/*.py
+          pylint \
+            read_yaml.py employees/*.py utils/*.py tests/*.py
+          yamllint --strict \
+            .gitlab-ci.yml .github/workflows/python.yml \
+            bitbucket-pipelines.yml tests/test.yaml
           python setup.py check
 
       - name: test

@@ -17,4 +17,3 @@ Simple [Python 3](https://docs.python.org/3/) example project.
 * [GitHub](https://frankhjung.github.io/python-yaml/index.html)
 
 * [GitLab](https://gitlab.com/theMarloGroup/training/students/fjung/python-yaml/pipelines)
-

@@ -24,9 +24,10 @@ if __name__ == "__main__":
         description="a Python example program to show YAML processing",
         epilog="© 2014-2021 Frank H Jung mailto:frankhjung@linux.com",
     )
-    parser.add_argument(
-        "-v", "--verbose", action="store_true", help="show verbose output"
-    )
+    parser.add_argument("-v",
+                        "--verbose",
+                        action="store_true",
+                        help="show verbose output")
     parser.add_argument(
         "--version",
         action="version",
@@ -45,9 +46,8 @@ if __name__ == "__main__":
     path = args.path
 
     # set logger
-    logging.config.fileConfig(
-        fname="logger.properties", defaults={"log_file_name": "read_yaml.log"}
-    )
+    logging.config.fileConfig(fname="logger.properties",
+                              defaults={"log_file_name": "read_yaml.log"})
     logger = logging.getLogger()
 
     # log at debug level if verbose flag given
@@ -66,5 +66,3 @@ if __name__ == "__main__":
             logger.debug("processing file .............: %s", infile.name)
             show_employees(infile)
             dump_employees(infile.name)
-
-    sys.exit(0)

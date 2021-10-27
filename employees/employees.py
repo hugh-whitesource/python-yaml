@@ -49,7 +49,6 @@ class Employees:
         """load yaml data from a file
         :param infile:
         """
-
         if isinstance(infile, IOBase):
             self.employees = safe_load(infile)
         else:
@@ -60,19 +59,16 @@ class Employees:
         """
         dump imported yaml
         """
-
         return dump(self.employees)
 
     def get_name(self, eid):
         """Returns name of employee by id.
         :param eid:
         """
-        name = None
-        for _n in self.employees.keys():
-            if eid == self.employees.get(_n).get("id"):
-                name = _n
-                break
-        return name
+        names = list(
+            filter(lambda x: eid == self.employees.get(x).get('id'),
+                   self.employees.keys()))
+        return names[0]
 
     def get_by_id(self, eid):
         """Returns turnover for all years for an employee by id.

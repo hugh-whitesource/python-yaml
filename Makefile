@@ -13,7 +13,7 @@ CTAGS	:= $(shell which ctags)
 SRCS	:= read_yaml.py employees/*.py utils/*.py tests/*.py
 YAMLS	:= $(wildcard .*.yml *.yml .github/**/*.yml tests/*.yaml)
 
-default:	check test
+default:	check test version
 
 all:	check test run doc dist
 
@@ -40,6 +40,7 @@ help:
 	@echo
 	@echo "deactivate"
 	@echo
+	$(PYTHON) -m read_yaml -h
 
 check:
 ifdef CTAGS
@@ -74,12 +75,10 @@ dist:
 	cp -p target/dist/*.tar.gz public
 
 run:
-	$(PYTHON) -m read_yaml --version
-	$(PYTHON) -m read_yaml -h
 	$(PYTHON) -m read_yaml -v tests
 
 version:
-	$(PYTHON) -m main --version
+	$(PYTHON) -m read_yaml --version
 
 clean:
 	# clean build distribution

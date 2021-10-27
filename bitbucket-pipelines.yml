@@ -8,6 +8,17 @@ pipelines:
         name: build all
         caches:
           - pip
+        condition:
+          changesets:
+            includePaths:
+              - Makefile
+              - requirements.txt
+              - "*.py"
+              - "*.rst"
+              - "docs/**"
+              - "employees/**"
+              - "tests/**"
+              - "utils/**"
         script:
           - uname -a
           - apt-get update && apt-get install -y make python3-yaml

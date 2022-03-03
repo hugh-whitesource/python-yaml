@@ -52,7 +52,7 @@ class Employees:
         if isinstance(infile, IOBase):
             self.employees = safe_load(infile)
         else:
-            with open(infile, "r") as _fh:
+            with open(infile, "r", encoding="UTF-8") as _fh:
                 self.employees = safe_load(_fh)
 
     def dump(self):

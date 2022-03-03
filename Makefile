@@ -55,6 +55,8 @@ endif
 	pylint $(SRCS)
 	# check yaml
 	yamllint --strict $(YAMLS)
+	# check using flake8
+	flake8 $(SRCS)
 	# check distutils
 	$(PYTHON) setup.py check
 

@@ -15,4 +15,4 @@ def test_files():
 
 
 def test_no_files():
-    assert list_yamls("utils") == []
+    assert not list_yamls("utils")

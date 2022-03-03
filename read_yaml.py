@@ -31,7 +31,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--version",
         action="version",
-        version="%(prog)s {version}".format(version=__version__),
+        version=f"%(prog)s {__version__}",
     )
     parser.add_argument(
         "path",
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     # call helper function to show YAML file contents
     logger.debug("path ........................: %s", path)
     for f in path:
-        with open(f, "r") as infile:
+        with open(f, "r", encoding="UTF-8") as infile:
             logger.debug("processing file .............: %s", infile.name)
             show_employees(infile)
             dump_employees(infile.name)

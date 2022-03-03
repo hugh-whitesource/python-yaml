@@ -30,7 +30,7 @@ def test_can_read_file(test_file):
 
 
 def test_load_infile(test_file):
-    with open(test_file, "r") as _fh:
+    with open(test_file, "r", encoding="UTF-8") as _fh:
         assert Employees(_fh)
 
 

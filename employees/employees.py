@@ -22,8 +22,8 @@ class Employees:
             self.load(infile)
 
     def filter_by_id(self, eid):
-        """filter by id
-        :param eid:
+        """ Filter by employee id.
+        :param eid: filter on this employee id
         """
         for _k in self.employees.keys():
             if eid == self.employees.get(_k).get("id"):
@@ -31,23 +31,23 @@ class Employees:
                     yield self.employees.get(_k).get("turnover").get(_t)
 
     def filter_by_name(self, name):
-        """filter by name
-        :param name:
+        """ Filter by employee name.
+        :param name: filter on this employee name
         """
         for _t in self.employees.get(name).get("turnover"):
             yield self.employees.get(name).get("turnover").get(_t)
 
     def filter_by_year(self, year):
-        """filter by year
-        :param year:
+        """ Filter by year of employee turnover.
+        :param year: filter on this turnover year
         """
         for _n in self.employees.keys():
             if year in self.employees.get(_n).get("turnover"):
                 yield self.employees.get(_n).get("turnover").get(year)
 
     def load(self, infile):
-        """load yaml data from a file
-        :param infile:
+        """ Load YAML data from a file.
+        :param infile: the YAML file to read
         """
         if isinstance(infile, IOBase):
             self.employees = safe_load(infile)
@@ -57,13 +57,13 @@ class Employees:
 
     def dump(self):
         """
-        dump imported yaml
+        Dump imported YAML.
         """
         return dump(self.employees)
 
     def get_name(self, eid):
-        """Returns name of employee by id.
-        :param eid:
+        """ Returns the name of employee by id.
+        :param eid: the employee id
         """
         names = list(
             filter(lambda x: eid == self.employees.get(x).get('id'),
@@ -71,8 +71,8 @@ class Employees:
         return names[0]
 
     def get_by_id(self, eid):
-        """Returns turnover for all years for an employee by id.
-        :param eid:
+        """ Returns the turnover for all years for an employee by id.
+        :param eid: the employee id
         """
         turnovers = list(self.filter_by_id(eid))
         if turnovers:
@@ -82,8 +82,8 @@ class Employees:
         return total
 
     def get_by_name(self, name):
-        """Returns turnover for all years for an employee by name.
-        :param name:
+        """ Returns turnover for all years for an employee by name.
+        :param name: the employee name
         """
         if name in self.employees.keys():
             total = sum(self.filter_by_name(name))
@@ -92,16 +92,16 @@ class Employees:
         return total
 
     def get_by_year(self, year):
-        """Returns turnover for all employees by year.
-        :param year:
+        """ Returns turnover for all employees by year.
+        :param year: year of turnover
         """
         total = sum(self.filter_by_year(year))
         return total
 
     def get_for_name_by_year(self, name, year):
-        """Returns turnover for an employee for a specific year.
-        :param year:
-        :param name:
+        """ Returns turnover for an employee for a specific year.
+        :param name: name of employee
+        :param year: year of turnover
         """
         if name in self.employees.keys():
             turnovers = list(
@@ -117,8 +117,8 @@ class Employees:
         return total
 
     def list_by_id(self, eid):
-        """List turnover by id.
-        :param eid:
+        """ List turnover by id.
+        :param eid: the employee id
         """
         turnovers = list(self.filter_by_id(eid))
         if turnovers:
@@ -128,8 +128,8 @@ class Employees:
         return turnovers
 
     def list_by_name(self, name):
-        """List turnover by name.
-        :param name:
+        """ List turnover by name.
+        :param name: name of employee
         """
         if name in self.employees.keys():
             turnovers = list(self.filter_by_name(name))
@@ -138,8 +138,8 @@ class Employees:
         return turnovers
 
     def list_by_year(self, year):
-        """List turnover by year.
-        :param year:
+        """ List turnover by year.
+        :param year: year of turnover
         """
         turnovers = list(self.filter_by_year(year))
         if turnovers:

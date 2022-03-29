@@ -51,7 +51,7 @@ jobs:
           pylint \
             read_yaml.py employees/*.py utils/*.py tests/*.py
           yamllint --strict \
-            .gitlab-ci.yml .github/workflows/python.yml \
+            .gitlab-ci.yml .github/workflows/pipeline.yml \
             bitbucket-pipelines.yml tests/test.yaml
           python setup.py check
 

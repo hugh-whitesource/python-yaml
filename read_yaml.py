@@ -3,13 +3,14 @@
 # pylint: disable=C0103
 """
 Read Employee data to return turnover information.
-This is a example Python program to read and process YAML files.
+This is an example Python program to read and process YAML files.
 """
 
 import argparse
 import logging.config
 import os.path
 import sys
+from io import TextIOWrapper
 
 from employees.employees import Employees
 from utils.files import list_yamls
@@ -64,5 +65,6 @@ if __name__ == "__main__":
     for f in path:
         with open(f, "r", encoding="UTF-8") as infile:
             logger.debug("processing file .............: %s", infile.name)
+            assert isinstance(infile, TextIOWrapper)
             show_employees(infile)
             dump_employees(infile.name)

@@ -16,7 +16,9 @@ from employees.employees import Employees
 from utils.files import list_yamls
 from utils.report import dump_employees, show_employees
 
-if __name__ == "__main__":
+
+def main() -> None:
+    """ Example of YAML file processing. """
 
     __version__ = Employees.__version__
     parser = argparse.ArgumentParser(
@@ -68,3 +70,7 @@ if __name__ == "__main__":
             assert isinstance(infile, TextIOWrapper)
             show_employees(infile)
             dump_employees(infile.name)
+
+
+if __name__ == "__main__":
+    main()

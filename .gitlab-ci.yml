@@ -1,7 +1,7 @@
 ---
 
 # https://hub.docker.com/r/library/python/tags/
-image: python:3.9-buster
+image: python:3.9.12-buster
 
 # Change pip's cache directory to be inside the project directory since we can
 # only cache local items.
@@ -25,27 +25,24 @@ before_script:
   - source venv/bin/activate
   - pip install -Ur requirements.txt
   - echo isort $(isort --version-number)
+  - black --version
+  - flake8 --version
   - pylint --version
   - yamllint --version
-  - yapf --version
 
 build:
   stage: build
   except: [tags]
   script:
-    - echo Check ...
-    - isort --check --diff
-        read_yaml.py employees/*.py utils/*.py tests/*.py
-    - yapf --style google --parallel -i
-        read_yaml.py employees/*.py utils/*.py tests/*.py
-    - pylint
-        read_yaml.py employees/*.py utils/*.py tests/*.py
-    - yamllint --strict
-        .github/workflows/*.yml .*.yml *.yml tests/*.yaml
+    - echo check ...
+    - isort --check --diff read_yaml.py employees/*.py utils/*.py tests/*.py
+    - black --check read_yaml.py employees/*.py utils/*.py tests/*.py
+    - pylint read_yaml.py employees/*.py utils/*.py tests/*.py
+    - yamllint --strict .github/workflows/*.yml .*.yml *.yml tests/*.yaml
     - python setup.py check
-    - echo Test ...
+    - echo test ...
     - pytest -v --cov-report term-missing --cov=employees tests/
-    - echo Run ...
+    - echo run ...
     - python -m read_yaml -h
     - python -m read_yaml --version
     - python -m read_yaml -v tests/test.yaml
@@ -55,7 +52,9 @@ pages:
   only: [master]
   except: [tags]
   script:
-    - pytest -v --html=cover/report.html --cov=employees tests/
+    - echo document ...
+    - pytest -v --html=cover/report.html --cov=employees
+        --cov-report=html:cover tests/
     - coverage html -d cover employees/employees.py
     - (cd docs; make html)
     - python setup.py clean

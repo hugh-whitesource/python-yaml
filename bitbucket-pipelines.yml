@@ -1,6 +1,6 @@
 ---
 
-image: python:3.9
+image: python:3.9.12-buster
 
 pipelines:
   default:

@@ -1,4 +1,4 @@
-black           ~= 22.1
+black           ~= 22.3
 coverage        ~= 6.3
 docutils        ~= 0.17
 flake8          ~= 4.0
@@ -10,6 +10,4 @@ pytest-html     ~= 3.1
 pytest-metadata ~= 2.0
 PyYAML          ~= 6.0
 Sphinx          ~= 4.5
-virtualenv      ~= 20.13
 yamllint        ~= 1.26
-yapf            ~= 0.32

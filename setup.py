@@ -19,5 +19,5 @@ setup(
     url="https://github.com/frankhjung/python-yaml",
     license="LICENSE.txt",
     description="Python example project.",
-    long_description=open("README.rst").read(),
+    long_description=open("README.md").read(),  # pylint: disable=R1732,W1514
 )

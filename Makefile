@@ -4,13 +4,12 @@
 
 .PHONY: check clean dist doc help run test
 
-SHELL	:= /bin/sh
 COMMA	:= ,
 EMPTY	:=
-PYTHON	:= /usr/bin/python3
+PYTHON	:= $(shell which python3)
 CTAGS	:= $(shell which ctags)
 
-SRCS	:= read_yaml.py employees/*.py utils/*.py tests/*.py
+SRCS	:= *.py employees/*.py tests/*.py utils/*.py
 YAMLS	:= $(wildcard .*.yml *.yml .github/**/*.yml tests/*.yaml)
 
 default:	check test version
@@ -30,7 +29,7 @@ help:
 	@echo
 	@echo "Initialise virtual environment (venv) with:"
 	@echo
-	@echo "pip install -U virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip install -Ur requirements.txt"
+	@echo "pip3 install -U virtualenv; python3 -m virtualenv venv; source venv/bin/activate; pip3 install -Ur requirements.txt"
 	@echo
 	@echo "Start virtual environment (venv) with:"
 	@echo
@@ -50,13 +49,13 @@ endif
 	# sort imports
 	isort $(SRCS)
 	# format code to googles style
-	yapf --style google --parallel -i $(SRCS) setup.py
+	black -q $(SRCS)
+	# check using flake8
+	flake8 $(SRCS)
 	# check with pylint
 	pylint $(SRCS)
 	# check yaml
 	yamllint --strict $(YAMLS)
-	# check using flake8
-	flake8 $(SRCS)
 	# check distutils
 	$(PYTHON) setup.py check
 
@@ -74,7 +73,7 @@ dist:
 	$(PYTHON) setup.py sdist --dist-dir=target/dist
 	$(PYTHON) setup.py build --build-base=target/build
 	cp -pr target/docs/html public
-	cp -p target/dist/*.tar.gz public
+	cp -pr target/dist/*.tar.gz public
 
 run:
 	$(PYTHON) -m read_yaml -v tests

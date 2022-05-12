@@ -56,8 +56,6 @@ endif
 	pylint $(SRCS)
 	# check yaml
 	yamllint --strict $(YAMLS)
-	# check distutils
-	$(PYTHON) setup.py check
 
 test:
 	pytest -v --cov-report term-missing --cov=employees tests/
@@ -68,10 +66,6 @@ doc:
 	(cd docs; make html)
 
 dist:
-	# create source package and build distribution
-	$(PYTHON) setup.py clean
-	$(PYTHON) setup.py sdist --dist-dir=target/dist
-	$(PYTHON) setup.py build --build-base=target/build
 	cp -pr target/docs/html public
 	cp -pr target/dist/*.tar.gz public
 
@@ -82,8 +76,6 @@ version:
 	$(PYTHON) -m read_yaml --version
 
 clean:
-	# clean build distribution
-	$(PYTHON) setup.py clean
 	# clean generated files
 	(cd docs; make clean)
 	$(RM) -rf build

@@ -1,6 +1,6 @@
 ---
 
-image: python:3.9.12-buster
+image: python:3.10.4-buster
 
 pipelines:
   default:
@@ -22,10 +22,14 @@ pipelines:
         script:
           - uname -a
           - apt-get update && apt-get install -y make python3-yaml
+          - pip install -Ur requirements.txt
           - python --version
           - pip --version
-          - pip install -Ur requirements.txt
+          - echo isort $(isort --version-number)
+          - black --version
+          - flake8 --version
+          - pylint --version
+          - yamllint --version
           - make clean all
         artifacts:
-          - target/dist/**
           - target/docs/html/**

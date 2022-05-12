@@ -1,7 +1,7 @@
 ---
 
 # https://hub.docker.com/r/library/python/tags/
-image: python:3.9.12-buster
+image: python:3.10.4-buster
 
 # Change pip's cache directory to be inside the project directory since we can
 # only cache local items.
@@ -19,11 +19,13 @@ cache:
     - venv/
 
 before_script:
-  - python -V
-  - pip install -U virtualenv
+  - pip install --upgrade pip virtualenv
   - virtualenv venv
   - source venv/bin/activate
   - pip install -Ur requirements.txt
+  - python --version
+  - pip --version
+  - virtualenv --version
   - echo isort $(isort --version-number)
   - black --version
   - flake8 --version
@@ -39,7 +41,6 @@ build:
     - black --check read_yaml.py employees/*.py utils/*.py tests/*.py
     - pylint read_yaml.py employees/*.py utils/*.py tests/*.py
     - yamllint --strict .github/workflows/*.yml .*.yml *.yml tests/*.yaml
-    - python setup.py check
     - echo test ...
     - pytest -v --cov-report term-missing --cov=employees tests/
     - echo run ...
@@ -57,11 +58,7 @@ pages:
         --cov-report=html:cover tests/
     - coverage html -d cover employees/employees.py
     - (cd docs; make html)
-    - python setup.py clean
-    - python setup.py sdist --dist-dir=target/dist
-    - python setup.py build --build-base=target/build
     - mv target/docs/html public
   artifacts:
     paths:
       - public
-      - target/dist/*.tar.gz

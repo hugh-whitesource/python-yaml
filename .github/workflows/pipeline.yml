@@ -18,24 +18,20 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
         with:
-          python-version: 3.9.12
-
-      # name: cache
-      # uses: actions/cache@v2
-      # with:
-      #   path: venv
-      #   key: $GITHUB_REF
+          python-version: '3.10.4'
 
       - name: setup
         run: |
-          python -V
           python -m pip install --upgrade pip virtualenv
           python -m virtualenv venv
           source venv/bin/activate
           pip install -Ur requirements.txt
+          python --version
+          pip --version
+          virtualenv --version
           echo isort $(isort --version-number)
           black --version
           flake8 --version
@@ -53,7 +49,6 @@ jobs:
             read_yaml.py employees/*.py utils/*.py tests/*.py
           yamllint --strict \
             .*.yml .github/workflows/*.yml *.yml tests/*.yaml
-          python setup.py check
 
       - name: test
         run: |
@@ -76,10 +71,8 @@ jobs:
           (cd docs; make html)
 
       - name: publish
-        uses: crazy-max/ghaction-github-pages@v1
+        uses: JamesIves/github-pages-deploy-action@v4
         if: success()
         with:
-          target_branch: gh-pages
-          build_dir: target/docs/html
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAGES_TOKEN }}
+          branch: gh-pages
+          folder: target/docs/html

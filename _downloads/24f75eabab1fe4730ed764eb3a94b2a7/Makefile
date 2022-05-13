@@ -67,7 +67,6 @@ doc:
 
 dist:
 	cp -pr target/docs/html public
-	cp -pr target/dist/*.tar.gz public
 
 run:
 	$(PYTHON) -m read_yaml -v tests
